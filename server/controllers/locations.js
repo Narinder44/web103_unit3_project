@@ -1,6 +1,6 @@
-const { pool } = require("../database");
+import { pool } from '../config/database.js'
 
-const getLocations = async () => {
+export const getLocations = async () => {
   try {
     const res = await pool.query("SELECT * FROM locations");
     return res.rows;
@@ -9,4 +9,4 @@ const getLocations = async () => {
   }
 };
 
-module.exports = { getLocations };
+export default getLocations;

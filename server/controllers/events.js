@@ -1,12 +1,13 @@
-const { pool } = require("../database");
+import { pool } from '../config/database.js';
 
-const getEvents = async () => {
+export const getEvents = async () => {
   try {
     const res = await pool.query("SELECT * FROM events");
     return res.rows;
   } catch (err) {
     console.error(err.message);
+    throw err; 
   }
 };
 
-module.exports = { getEvents };
+export default getEvents;
