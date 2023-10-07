@@ -1,12 +1,27 @@
-import { pool } from '../config/database.js'
+import express from "express";
+import getEvents from "../controllers/events.js";
+import getLocations from "../controllers/locations.js";
 
-export const getLocations = async () => {
+const router = express.Router();
+
+router.get("/events", async (req, res) => {
   try {
-    const res = await pool.query("SELECT * FROM locations");
-    return res.rows;
+    const events = await getEvents();
+    res.json(events);
   } catch (err) {
     console.error(err.message);
+    res.status(500).send("Server Error");
   }
-};
+});
 
-export default getLocations;
+router.get("/locations", async (req, res) => {
+  try {
+    const locations = await getLocations();
+    res.json(locations);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server Error");
+  }
+});
+
+export default router;
